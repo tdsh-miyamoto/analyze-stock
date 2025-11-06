@@ -45,12 +45,13 @@ selected_ticker = st.sidebar.selectbox(
     ticker_list
 )
 ticker_code = ticker[selected_ticker]
-df = yf.download(ticker_code, period = "6mo", interval = "1d")
+df = yf.download(tickers = ticker_code, period = "6mo", interval = "1d", multi_level_index = False)
+#print(df)
 #データフレームを表示
 st.markdown("### 入力データ")
 st.dataframe(df.style.highlight_max(axis=0))
 #mpfplotで可視化。
-fig = mpf.plot(df, type="candle", volume=True, figratio=(10, 5), figsize= (12,8))
+fig = mpf.plot(df, type="candle", volume=True, figratio=(10, 5), figsize= (12,8), style = "yahoo")
 st.pyplot(fig)
 
 #実行ボタン（なくてもよいが、その場合、処理を進めるまでエラー画面が表示されてしまう）
